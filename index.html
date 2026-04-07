@@ -2293,7 +2293,11 @@ function openBatIA() {
     body.appendChild(output);
     body.appendChild(row);
 
-    const GROQ_KEY = localStorage.getItem('GROQ_API_KEY') || 'INSERIR_SUA_CHAVE_GROQ_AQUI';
+    let GROQ_KEY = localStorage.getItem('GROQ_API_KEY');
+    if (!GROQ_KEY) {
+      const ask = prompt('Digite sua GROQ API KEY para usar a BatIA:');
+      if (ask) { GROQ_KEY = ask; localStorage.setItem('GROQ_API_KEY', ask); }
+    }
     let memoria = [];
     let processando = false;
 
@@ -3487,7 +3491,11 @@ const PIX_WHATS  = '5521998601608';      // ← seu WhatsApp com DDI+DDD (sem es
 // =====================
 // JSONBIN - CÓDIGOS DE USO ÚNICO
 // =====================
-const JSONBIN_KEY = localStorage.getItem('JSONBIN_API_KEY') || 'INSERIR_SUA_CHAVE_JSONBIN_AQUI';
+let JSONBIN_KEY = localStorage.getItem('JSONBIN_API_KEY');
+if (!JSONBIN_KEY) {
+  const ask = prompt('Digite sua JSONBIN MASTER KEY para o acesso:');
+  if (ask) { JSONBIN_KEY = ask; localStorage.setItem('JSONBIN_API_KEY', ask); }
+}
 const JSONBIN_BIN = '69d2faea36566621a8814ab1';
 const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN}`;
 
@@ -4164,9 +4172,20 @@ function openBatNoticias() {
       feed.innerHTML = '<div class="news-skeleton"></div><div class="news-skeleton"></div><div class="news-skeleton"></div>';
 
       try {
+        let ANTHROPIC_KEY = localStorage.getItem('ANTHROPIC_API_KEY');
+        if (!ANTHROPIC_KEY) {
+          const ask = prompt('Digite sua ANTHROPIC API KEY (Claude) para gerar as notícias:');
+          if (ask) { ANTHROPIC_KEY = ask; localStorage.setItem('ANTHROPIC_API_KEY', ask); }
+        }
+
         const res = await fetch('https://api.anthropic.com/v1/messages', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 
+            'Content-Type': 'application/json',
+            'x-api-key': ANTHROPIC_KEY || '',
+            'anthropic-version': '2023-06-01',
+            'anthropic-dangerously-allow-browser': 'true'
+          },
           body: JSON.stringify({
             model: 'claude-sonnet-4-20250514',
             max_tokens: 1000,
