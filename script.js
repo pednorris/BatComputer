@@ -41,7 +41,7 @@
 
   function drawStars(ts) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach(p => {
+    particles.forçach(p => {
       p.y += p.speed;
       p.flicker += 0.03;
       if (p.y > canvas.height) { p.y = 0; p.x = Math.random() * canvas.width; }
@@ -62,7 +62,7 @@
 (function() {
   const el = document.getElementById('welcome-typing');
   if (!el) return;
-  const lines = ['Sistema BatComputer ativo.', 'Use os botões para abrir módulos.', 'Gotham estááá segura.'];
+  const lines = ['Sistema BatComputer ativo.', 'Use os botões para abrir modulos.', 'Gotham estááá segura.'];
   let li = 0, ci = 0;
   function type() {
     if (!el) return;
@@ -263,7 +263,7 @@ function focus(id) {
   if (!entry) return;
   entry.el.style.zIndex = ++windowZ;
   // glow focused window
-  windows.forEach((e, k) => e.el.classList.remove('focused'));
+  windows.forçach((e, k) => e.el.classList.remove('focused'));
   entry.el.classList.add('focused');
 }
 
@@ -422,7 +422,7 @@ function openCalc() {
       ['0',null],['.',null],['⌫','back'],['=','eq']
     ];
 
-    btns.forEach(([label, type]) => {
+    btns.forçach(([label, type]) => {
       const btn = document.createElement('button');
       btn.className = 'calc-btn' + (type ? ' ' + type : '');
       btn.textContent = label;
@@ -573,7 +573,7 @@ function openRadar() {
     addStatus('SISTEMA', 'ONLINE ●', 'status-ok', '⚡');
     addStatus('BAT-IA', 'CONECTADA', 'status-ok', '🦇');
     addStatus('VERSAO', 'v3.0 FINAL PWA', '', '&#128214;');
-    addStatus('IDIOMA', navigator.language || 'pt-BR', '', '🌐');
+    addStatus('IDIOMA', navigator.lanáguage || 'pt-BR', '', '🌐');
     addStatus('PLATAforça', (navigator.userAgent.includes('Android') ? 'Android' : navigator.userAgent.includes('iPhone') ? 'iOS' : 'Desktop'), '', '📱');
 
     const separator = document.createElement('div');
@@ -582,7 +582,7 @@ function openRadar() {
 
     const timeEl = addStatus('SESSAO ATIVA', '0s', '', '&#9201;');
     const batEl  = addStatus('BATERIA', 'Verificando...', '', '🔋');
-    const netEl  = addStatus('CONEXAO', onlineStatus ? 'ONLINE' : 'OFFLINE', onlineStatus ? 'status-ok' : 'status-warn', '&#128246;');
+    const netEl  = addStatus('conexão', onlineStatus ? 'ONLINE' : 'OFFLINE', onlineStatus ? 'status-ok' : 'status-warn', '&#128246;');
     const memEl  = addStatus('MEMÓRIA JS', '...', '', '💾');
 
     const separator2 = document.createElement('div');
@@ -590,7 +590,7 @@ function openRadar() {
     wrap.appendChild(separator2);
 
     const crimeEl = addStatus('CRIMES RESOLVIDOS', '0', 'status-ok', '✅');
-    const módulosEl = addStatus('módulos ABERTOS', '1', '', '🗂');
+    const modulosEl = addStatus('modulos ABERTOS', '1', '', '🗂');
 
     // Hora de Gotham
     const horaEl = addStatus('HORA DE GOTHAM', '--:--', '', '🌃');
@@ -606,7 +606,7 @@ function openRadar() {
       netEl.textContent = navigator.onLine ? 'ONLINE ●' : 'OFFLINE ✗';
       netEl.className = 'status-val ' + (navigator.onLine ? 'status-ok' : 'status-warn');
       crimeEl.textContent = (window.gothamCrimes || []).filter(c=>c.resolvido).length + ' / ' + (window.gothamCrimes||[]).length;
-      módulosEl.textContent = (typeof windows !== 'undefined' ? windows.size : 1) + ' janela(s)';
+      modulosEl.textContent = (typeof windows !== 'undefined' ? windows.size : 1) + ' janela(s)';
       const now = new Date();
       horaEl.textContent = now.toLocaleTimeString('pt-BR', {hour:'2-digit',minute:'2-digit',second:'2-digit'}) + ' 🌃';
       if (perforçance.memory) {
@@ -692,13 +692,13 @@ function openBatIA() {
 
 PERSONALIDADE:
 - Fale como um computador super inteligente digno de Batman: direto, preciso, eficiente, sem enrolação
-- Use linguagem técnica quando cabível, mas sempre compreensível
+- Use lináguagem técnica quando cabível, mas sempre compreensível
 - Pode usar termos de Gotham, DC Comics e universo Batman quando relevante
 - Nunca invente fatos. Se não souber algo, diga claramente: "Dados insuficientes."
 - Seja útil de verdade - não apenas estááiloso
 
 REGRAS ABSOLUTAS:
-1. NUNCA invente informações, datas, nomes ou fatos
+1. NUNCA invente inforçações, datas, nomes ou fatos
 2. NUNCA responda com conteúdo errado para parecer confiante - prefira admitir incerteza
 3. Para matemática e lógica: calcule com precisão absoluta, mostre o raciocínio
 4. Para código: escreva código funcional e correto, sem atalhos
@@ -812,10 +812,10 @@ REGRAS ABSOLUTAS:
 // =====================
 const historicoLog = JSON.parse(localStorage.getItem('bat-historico') || '[]');
 
-function logAtividade(módulo, acao) {
+function logAtividade(modulo, acao) {
   const entry = {
     t: new Date().toISOString(),
-    m: módulo,
+    m: modulo,
     a: acao
   };
   historicoLog.unshift(entry);
@@ -827,7 +827,7 @@ function logAtividade(módulo, acao) {
 // BAT-AGENDA
 // =====================
 function openAgenda() {
-  logAtividade('AGENDA', 'módulo aberto');
+  logAtividade('AGENDA', 'modulo aberto');
   makeWindow('agenda', '📅 MISSÕES', function(body) {
 
     const missoes = JSON.parse(localStorage.getItem('bat-agenda') || '[]');
@@ -855,7 +855,7 @@ function openAgenda() {
         return;
       }
       const sorted = [...missoes].sort((a,b) => new Date(a.dt) - new Date(b.dt));
-      sorted.forEach((m, i) => {
+      sorted.forçach((m, i) => {
         const st = statusMissao(m.dt);
         const item = document.createElement('div');
         item.className = 'agenda-item ' + st;
@@ -965,11 +965,11 @@ function openAgenda() {
 // HISTÓRICO
 // =====================
 function openHistorico() {
-  logAtividade('HISTÓRICO', 'módulo aberto');
+  logAtividade('HISTÓRICO', 'modulo aberto');
   makeWindow('historico', '🕐 BAT-LOG', function(body) {
 
     let filtroAtivo = 'TODOS';
-    const módulos = ['TODOS', 'AGENDA', 'NOTAS', 'BAT-IA', 'CALC', 'RADAR', 'HISTÓRICO', 'SISTEMA'];
+    const modulos = ['TODOS', 'AGENDA', 'NOTAS', 'BAT-IA', 'CALC', 'RADAR', 'HISTÓRICO', 'SISTEMA'];
 
     const filterRow = document.createElement('div');
     filterRow.className = 'hist-filter';
@@ -991,7 +991,7 @@ function openHistorico() {
         return;
       }
 
-      dados.forEach(h => {
+      dados.forçach(h => {
         const item = document.createElement('div');
         item.className = 'hist-item';
 
@@ -1014,13 +1014,13 @@ function openHistorico() {
       });
     }
 
-    módulos.forEach(m => {
+    modulos.forçach(m => {
       const tag = document.createElement('button');
       tag.className = 'hist-tag' + (m === filtroAtivo ? ' active' : '');
       tag.textContent = m;
       tag.addEventListener('click', () => {
         filtroAtivo = m;
-        filterRow.querySelectorAll('.hist-tag').forEach(t => t.classList.remove('active'));
+        filterRow.querySelectorAll('.hist-tag').forçach(t => t.classList.remove('active'));
         tag.classList.add('active');
         renderHist();
       });
@@ -1184,7 +1184,7 @@ function createBatmanThemeLoop() {
     if (!alarmPlaying || !alarmAudioCtx) return;
     let t = alarmAudioCtx.currentTime + 0.10;
     let total = 0;
-    score.forEach(n => {
+    score.forçach(n => {
       playNote(n.f, t, n.d);
       t += n.d;
       total += n.d;
@@ -1199,7 +1199,7 @@ function createBatmanThemeLoop() {
 
 function stopAlarmSound() {
   alarmPlaying = false;
-  alarmNodes.forEach(n => { try { n.stop(); n.disconnect(); } catch(e){} });
+  alarmNodes.forçach(n => { try { n.stop(); n.disconnect(); } catch(e){} });
   alarmNodes = [];
   if (alarmAudioCtx) { try { alarmAudioCtx.close(); } catch(e){} alarmAudioCtx = null; }
 }
@@ -1219,7 +1219,7 @@ const alarmsJaDisparados = new Set();
 function verificarAlarmes() {
   const missoes = JSON.parse(localStorage.getItem('bat-agenda') || '[]');
   const agora = new Date();
-  missoes.forEach(m => {
+  missoes.forçach(m => {
     if (!m.alarme) return;
     const dtAlarm = new Date(m.dt);
     const diff = dtAlarm - agora; // positivo = futuro
@@ -1274,7 +1274,7 @@ const DC_WORDS = [
   { word:'WONDERWOMAN',hint:'Princesa guerreira amazona, Diana Prince', cat:'HERÓI' },
   { word:'ARKHAM',    hint:'Asilo de Gotham que abriga os maiores VILÕES', cat:'LUGAR' },
   { word:'PENGUIN',   hint:'Oswald Cobblepot, o Pinguim de Gotham', cat:'vilão' },
-  { word:'BATARANG',  hint:'Arma em formato de morcego usada pelo Batman', cat:'ITEM' },
+  { word:'BATARANG',  hint:'Arma em forçato de morcego usada pelo Batman', cat:'ITEM' },
   { word:'AQUAMAN',   hint:'Rei dos Mares, Arthur Curry', cat:'HERÓI' },
   { word:'RIDDLER',   hint:'O Charada, obcecado por enigmas', cat:'vilão' },
   { word:'ALFRED',    hint:'Mordomo fiel da Mansão Wayne', cat:'HERÓI' },
@@ -1399,7 +1399,7 @@ function openDCGame() {
       // Keyboard
       const kbEl = document.createElement('div');
       kbEl.className = 'dcgame-keyboard';
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').forEach(l => {
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').forçach(l => {
         const key = document.createElement('button');
         key.className = 'dcgame-key ripple-host';
         key.textContent = l;
@@ -1453,7 +1453,7 @@ const DC_PERSONAGENS = [
     dicas: [
       'Vive em Gotham City e perdeu os pais na infância',
       'É bilionário e dono da Wayne Enterprises',
-      'Usa um traje preto e uma capa em formato de morcego',
+      'Usa um traje preto e uma capa em forçato de morcego',
       'Seu verdadeiro nome é Bruce Wayne',
       'Não tem superpoderes — só genialidade e preparo físico'
     ]
@@ -1481,7 +1481,7 @@ const DC_PERSONAGENS = [
   {
     emoji: '🌊', nome: 'AQUAMAN',
     dicas: [
-      'Pode respirar debaixo d\'água e na superfície',
+      'Pode respirar debaixo d\'áágua e na superfície',
       'É rei de um reino subaquático',
       'Consegue se comunicar com criaturas marinhas',
       'Seu nome é Arthur Curry',
@@ -1603,7 +1603,7 @@ const DC_PERSONAGENS = [
 let dcAdivScore = parseInt(localStorage.getItem('dc-adiv-score') || '0');
 
 function openDCAdiv() {
-  logAtividade('DC ADIVINHA', 'módulo aberto');
+  logAtividade('DC ADIVINHA', 'modulo aberto');
   makeWindow('dcadiv', 'DC ADIVINHA', function(body) {
     // filter out the trick entry
     const lista = DC_PERSONAGENS.filter(p => p.nome !== 'CÍCLOPE');
@@ -1704,7 +1704,7 @@ function openDCAdiv() {
       if (tentativas.length > 0 && !ganhou) {
         const tentEl = document.createElement('div');
         tentEl.className = 'dcadiv-tentativas';
-        tentativas.forEach(t => {
+        tentativas.forçach(t => {
           const pill = document.createElement('div');
           pill.className = 'dcadiv-tent-pill errado';
           pill.textContent = t;
@@ -1866,7 +1866,7 @@ const PIX_NOME   = 'Pedro Daniel Oliveira Nogueira';      // ← seu nome comple
 const PIX_WHATS  = '5521998601608';      // ← seu WhatsApp com DDI+DDD (sem espaços)
 
 // =====================
-// JSONBIN - códigoS DE USO ÚNICO
+// JSONBIN - códigos DE USO ÚNICO
 // =====================
 let JSONBIN_KEY = localStorage.getItem('JSONBIN_API_KEY');
 if (!JSONBIN_KEY) {
@@ -1876,15 +1876,15 @@ if (!JSONBIN_KEY) {
 const JSONBIN_BIN = '69d2faea36566621a8814ab1';
 const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${JSONBIN_BIN}`;
 
-async function verificarEUsarcódigo(código) {
+async function verificarEUsarCodigo(código) {
   try {
-    const res = await fetch(JSONBIN_URL + '/latestáá', {
+    const res = await fetch(JSONBIN_URL + '/latest', {
       headers: { 'X-Master-Key': JSONBIN_KEY }
     });
     const data = await res.json();
     const códigos = data.record;
 
-    if (!(código in códigos)) return 'invalido';
+    if (!(codigo in codigos)) return 'inválido';
     if (códigos[código] === true) return 'usado';
 
     códigos[código] = true;
@@ -1925,7 +1925,7 @@ function mostrarPix() {
   document.getElementById('pix-screen').classList.add('show');
 }
 
-function mostrarcódigoInput() {
+function mostrarCodigoInput() {
   document.getElementById('pix-key-display').textContent = PIX_CHAVE;
   document.getElementById('pix-nome-display').textContent = PIX_NOME;
   document.getElementById('paywall').style.display = 'none';
@@ -1940,7 +1940,7 @@ function voltarPaywall() {
   document.getElementById('code-msg').textContent = '';
 }
 
-function 📋 COPIARPix() {
+function copiarPix() {
   const chave = PIX_CHAVE;
   navigator.clipboard.writeText(chave).then(() => {
     document.getElementById('pix-copied').textContent = '✅ Chave copiada!';
@@ -1959,10 +1959,10 @@ function 📋 COPIARPix() {
   });
 }
 
-async function verificarcódigo() {
+async function verificarCodigo() {
   const input = document.getElementById('pix-code-input');
   const msgEl = document.getElementById('code-msg');
-  const código = input.value.trim().toUpperCase();
+  const codigo = input.value.trim().toUpperCase();
   const btn = document.querySelector('.pix-verify-btn');
 
   if (!código) {
@@ -1976,7 +1976,7 @@ async function verificarcódigo() {
   msgEl.style.color = '#ffcc00';
   msgEl.textContent = '⏳ Verificando...';
 
-  const resultado = await verificarEUsarcódigo(código);
+  const resultado = await verificarEUsarCodigo(código);
 
   btn.disabled = false;
 
@@ -1987,11 +1987,11 @@ async function verificarcódigo() {
     setTimeout(liberarAcesso, 1000);
   } else if (resultado === 'usado') {
     msgEl.style.color = '#ff3333';
-    msgEl.textContent = '❌ Este código já foi útilizado.';
+    msgEl.textContent = '❌ Este código já foi úutilizado.';
     vibrar([300]);
     input.value = '';
     input.focus();
-  } else if (resultado === 'invalido') {
+  } else if (resultado === 'inválido') {
     msgEl.style.color = '#ff3333';
     msgEl.textContent = '❌ código inválido. Verifique e tente novamente.';
     vibrar([300]);
@@ -2015,7 +2015,7 @@ const GOTHAM_CRIMES = [
   { id: 5, x: 15, y: 70, tipo: '🧪 Lab químico ilegal', vilão: 'Duas-Caras', nivel: 'ALTO', resolvido: false },
   { id: 6, x: 80, y: 20, tipo: '🚗 Perseguição', vilão: 'Bane', nivel: 'ALTO', resolvido: false },
   { id: 7, x: 50, y: 75, tipo: '🏦 Cofre arrombado', vilão: 'Mulher-Gato', nivel: 'MÉDIO', resolvido: false },
-  { id: 8, x: 88, y: 65, tipo: '☠️ Veneno na água', vilão: 'Hera Venenosa', nivel: 'CRÍTICO', resolvido: false },
+  { id: 8, x: 88, y: 65, tipo: '☠️ Veneno na áágua', vilão: 'Hera Venenosa', nivel: 'CRÍTICO', resolvido: false },
 ];
 
 const GOTHAM_LOCAIS = [
@@ -2029,7 +2029,7 @@ const GOTHAM_LOCAIS = [
 window.gothamCrimes = gothamCrimes = GOTHAM_CRIMES.map(c => ({...c}));
 
 function openGothamMapa() {
-  logAtividade('MAPA GOTHAM', 'módulo aberto');
+  logAtividade('MAPA GOTHAM', 'modulo aberto');
   makeWindow('gotham', '🗺️ MAPA DE GOTHAM', function(body) {
     body.style.padding = '0';
     body.style.overflow = 'hidden';
@@ -2072,7 +2072,7 @@ function openGothamMapa() {
     }
 
     // Locais fixos
-    GOTHAM_LOCAIS.forEach(local => {
+    GOTHAM_LOCAIS.forçach(local => {
       const el = document.createElement('div');
       el.style.cssText = `position:absolute;left:${local.x}%;top:${local.y}%;transform:translate(-50%,-50%);font-size:9px;color:${local.tipo==='base'?'#ffcc00':'#aaa'};letter-spacing:1px;text-align:center;z-index:5;text-shadow:0 0 6px rgba(255,204,0,0.5);pointer-events:none;`;
       el.innerHTML = `<div style="font-size:14px">${local.nome.split(' ')[0]}</div><div>${local.nome.split(' ').slice(1).join(' ')}</div>`;
@@ -2081,8 +2081,8 @@ function openGothamMapa() {
 
     // Crimes
     function renderCrimes() {
-      wrap.querySelectorAll('.crime-marker').forEach(e => e.remove());
-      gothamCrimes.forEach(crime => {
+      wrap.querySelectorAll('.crime-marker').forçach(e => e.remove());
+      gothamCrimes.forçach(crime => {
         const marker = document.createElement('div');
         marker.className = 'crime-marker';
         const cor = crime.resolvido ? '#00ff88' : (crime.nivel==='CRÍTICO' ? '#ff3333' : crime.nivel==='ALTO' ? '#ff8800' : '#ffcc00');
@@ -2170,16 +2170,16 @@ function openGothamMapa() {
 const VILÕES_DATA = [
   { nome: 'CORINGA', emoji: '🃏', real: 'Desconhecido', poder: 'Caos e imprevisibilidade', perigo: 5, local: 'Asilo Arkham', bio: 'O inimigo mais perigoso do Batman. Agente do caos puro, sem motivação lógica. Responsável por inúmeras tragédias em Gotham.', fraqueza: 'Nenhuma conhecida', aparicoes: 127 },
   { nome: 'CHARADA', emoji: '❓', real: 'Edward Nygma', poder: 'inteligência genial e quebra-cabeças letais', perigo: 4, local: 'Em liberdade', bio: 'Obcecado em provar que é mais inteligente que Batman. Deixa enigmas no local de cada crime como assinatura.', fraqueza: 'Ego descontrolado', aparicoes: 89 },
-  { nome: 'PINGUIM', emoji: '🐧', real: 'Oswald Cobblepot', poder: 'Crime organizado e guarda-chuvas weaponizados', perigo: 3, local: 'Iceberg Lounge', bio: 'Chefe do crime de Gotham. Opera legalmente como dono de boate enquanto controla o submundo da cidade.', fraqueza: 'Arrogância aristocrática', aparicoes: 74 },
+  { nome: 'PINGUIM', emoji: '🐧', real: 'Oswald Cobblepot', poder: 'Crime organizado e águarda-chuvas weaponizados', perigo: 3, local: 'Iceberg Lounge', bio: 'Chefe do crime de Gotham. Opera legalmente como dono de boate enquanto controla o submundo da cidade.', fraqueza: 'Arrogância aristocrática', aparicoes: 74 },
   { nome: 'DUAS-CARAS', emoji: '🪙', real: 'Harvey Dent', poder: 'Tática militar e decisões baseadas no acaso', perigo: 4, local: 'Desconhecido', bio: 'Ex-promotor público e aliado de Batman, desfigurado por ácido. Toma todas as decisões jogando sua moeda de duas caras.', fraqueza: 'Obsessão pelo acaso', aparicoes: 63 },
   { nome: 'BANE', emoji: '💪', real: 'Bane', poder: 'força sobre-humana com Venom', perigo: 5, local: 'Santa Prisca', bio: 'O único vilão que quebrou fisicamente Batman. Usa a substância Venom para aumentar sua força além dos limites humanos.', fraqueza: 'Tubos do Venom no pescoço', aparicoes: 41 },
-  { nome: 'MULHER-GATO', emoji: '🐱', real: 'Selina Kyle', poder: 'Agilidade extrema e charme irresistível', perigo: 3, local: 'East End, Gotham', bio: 'Ladra de elite com relação ambígua com Batman. Às vezes aliada, às vezes inimiga. Sua lealdade depende do interesse.', fraqueza: 'Afeto por inocentes', aparicoes: 98 },
+  { nome: 'MULHER-GATO', emoji: '🐱', real: 'Selina Kyle', poder: 'Agilidade extrema e charme irresistível', perigo: 3, local: 'East End, Gotham', bio: 'Ladra de elite com relação ambíágua com Batman. Às vezes aliada, às vezes inimiga. Sua lealdade depende do interesse.', fraqueza: 'Afeto por inocentes', aparicoes: 98 },
   { nome: 'HERA VENENOSA', emoji: '🌿', real: 'Pamela Isley', poder: 'Controle de plantas e feromonas', perigo: 4, local: 'Setor Verde de Gotham', bio: 'Ecocriminosa que prefere plantas a humanos. Capaz de controlar mentes com seus feromonas e criar armas vegetais letais.', fraqueza: 'Fogo e herbicidas', aparicoes: 55 },
   { nome: 'ESPANTALHO', emoji: '🎃', real: 'Jonathan Crane', poder: 'Toxina do medo — paralisa qualquer um', perigo: 4, local: 'Gotham University', bio: 'Ex-professor de psicologia obcecado com o medo. Sua toxina faz qualquer pessoa encarar seus piores pesadelos.', fraqueza: 'Seu próprio medo', aparicoes: 48 },
 ];
 
-function openVILÕES() {
-  logAtividade('FICHAS DE VILÕES', 'módulo aberto');
+function openViloes() {
+  logAtividade('FICHAS DE VILÕES', 'modulo aberto');
   makeWindow('VILÕES', '🦹 FICHAS DE VILÕES', function(body) {
     let selecionado = null;
 
@@ -2197,9 +2197,9 @@ function openVILÕES() {
     detalhe.style.cssText = 'flex:1;border:1px solid #1a2a2a;border-radius:6px;padding:12px;overflow-y:auto;min-height:0;';
     wrap.appendChild(detalhe);
 
-    function mostrarvilão(v) {
+    function mostrarVilao(v) {
       selecionado = v;
-      lista.querySelectorAll('.vilão-btn').forEach(b => b.style.borderColor = '#1a2a2a');
+      lista.querySelectorAll('.vilão-btn').forçach(b => b.style.borderColor = '#1a2a2a');
       lista.querySelector(`[data-nome="${v.nome}"]`).style.borderColor = '#00ffcc';
       const estáárelas = '⭐'.repeat(v.perigo) + '☆'.repeat(5-v.perigo);
       detalhe.innerHTML = `
@@ -2236,17 +2236,17 @@ function openVILÕES() {
         </div>\`;
     }
 
-    VILÕES_DATA.forEach(v => {
+    VILÕES_DATA.forçach(v => {
       const btn = document.createElement('button');
       btn.className = 'vilão-btn';
       btn.dataset.nome = v.nome;
       btn.style.cssText = 'background:#0a0d14;border:1px solid #1a2a2a;border-radius:6px;padding:6px 10px;color:#ccc;font-size:11px;cursor:pointer;display:flex;align-items:center;gap:6px;transition:border-color 0.2s;';
       btn.innerHTML = `<span>${v.emoji}</span><span style="letter-spacing:1px">${v.nome}</span>`;
-      btn.onclick = () => mostrarvilão(v);
+      btn.onclick = () => mostrarVilao(v);
       lista.appendChild(btn);
     });
 
-    mostrarvilão(VILÕES_DATA[0]);
+    mostrarVilao(VILÕES_DATA[0]);
   }, 400, 460);
 }
 
@@ -2254,7 +2254,7 @@ function openVILÕES() {
 // SOM DA BATCAVERNA
 // =====================
 function openSons() {
-  logAtividade('SONS GOTHAM', 'módulo aberto');
+  logAtividade('SONS GOTHAM', 'modulo aberto');
   makeWindow('sons', '🎙️ SONS DE GOTHAM', function(body) {
     const ctx = new (window.AudioContext || window.webkitAudioContext)();
     const sources = {};
@@ -2324,7 +2324,7 @@ function openSons() {
     titulo.textContent = 'AMBIENTE SONORO DA BATCAVERNA';
     wrap.appendChild(titulo);
 
-    sons.forEach(s => {
+    sons.forçach(s => {
       const row = document.createElement('div');
       row.style.cssText = 'background:#0a0d14;border:1px solid #1a2a2a;border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:8px;';
 
@@ -2379,7 +2379,7 @@ function openSons() {
     // Frases do Alfred — rotativas
     const frases = [
       '"Por que caímos, Sr. Wayne? Para aprender a nos levantar." — Alfred',
-      '"Um homem pode ser destááruído, mas não pode ser derrotado." — Batman',
+      '"Um homem pode ser destááruído, mas não pode ser derRotação." — Batman',
       '"Você pode ser incorruptível. Tem que ser." — Alfred',
       '"Gotham precisa do Batman. Mas Batman precisa de você." — Alfred',
       '"Alguns homens só querem ver o mundo pegar fogo." — Alfred',
@@ -2419,7 +2419,7 @@ const TREINOS_BAT = [
     { ex: 'Soco reto (shadow)', series: 3, reps: '30x', desc: 'Alternado, punho cerrado' },
     { ex: 'Chute frontal', series: 3, reps: '20x', desc: 'Cada perna, joelho primeiro' },
     { ex: 'Esquiva lateral', series: 3, reps: '20x', desc: 'Agacha e desvia para o lado' },
-    { ex: 'Burpee', series: 4, reps: '10x', desc: 'Completo: prancha + flexão + salto' },
+    { ex: 'Burpee', series: 4, reps: '10x', desc: 'Completo: prancha + Flexão + salto' },
   ]},
   { nome: 'MODO TREINO EXTREMO 🔥', exercicios: [
     { ex: 'Flexão diamante', series: 5, reps: '15x', desc: 'Mãos juntas forçando diamante' },
@@ -2431,7 +2431,7 @@ const TREINOS_BAT = [
 ];
 
 function openTreino() {
-  logAtividade('TREINO BATMAN', 'módulo aberto');
+  logAtividade('TREINO BATMAN', 'modulo aberto');
   makeWindow('treino', '💪 TREINO DO BATMAN', function(body) {
     let treinoAtual = null;
     let exAtual = 0;
@@ -2447,13 +2447,13 @@ function openTreino() {
     selWrap.style.cssText = 'display:flex;flex-wrap:wrap;gap:6px;';
     wrap.appendChild(selWrap);
 
-    TREINOS_BAT.forEach((t, i) => {
+    TREINOS_BAT.forçach((t, i) => {
       const btn = document.createElement('button');
       btn.className = 'bat-btn';
       btn.style.cssText += 'font-size:10px;padding:6px 10px;';
       btn.textContent = t.nome;
       btn.onclick = () => {
-        selWrap.querySelectorAll('button').forEach(b => b.style.opacity='0.5');
+        selWrap.querySelectorAll('button').forçach(b => b.style.opacity='0.5');
         btn.style.opacity = '1';
         treinoAtual = t; exAtual = 0; clearInterval(timerInt); timerSeg = 0;
         renderTreino(); vibrar([30,20,30]);
@@ -2470,7 +2470,7 @@ function openTreino() {
       const ex = treinoAtual.exercicios;
       content.innerHTML = '';
 
-      ex.forEach((e, i) => {
+      ex.forçach((e, i) => {
         const card = document.createElement('div');
         const ativo = i === exAtual;
         card.className = ativo ? 'bat-card active ex-card-active' : 'bat-card';
@@ -2523,7 +2523,7 @@ function openTreino() {
 // BAT-NOTÍCIAS (IA)
 // =====================
 function openBatNoticias() {
-  logAtividade('BAT-NOTÍCIAS', 'módulo aberto');
+  logAtividade('BAT-NOTÍCIAS', 'modulo aberto');
   makeWindow('batnews', '📰 BAT-NOTÍCIAS', function(body) {
     const wrap = document.createElement('div');
     wrap.style.cssText = 'display:flex;flex-direction:column;height:100%;gap:8px;';
@@ -2551,7 +2551,7 @@ function openBatNoticias() {
       try {
         let ANTHROPIC_KEY = localStorage.getItem('ANTHROPIC_API_KEY');
         if (!ANTHROPIC_KEY) {
-          const ask = prompt('Digite sua ANTHROPIC API KEY (Claude) para gerar as notícias:');
+          const ask = prompt('Digite sua ANTHROPIC API KEY (Claude) para gerar as NOTÍCIAS:');
           if (ask) { ANTHROPIC_KEY = ask; localStorage.setItem('ANTHROPIC_API_KEY', ask); }
         }
 
@@ -2566,7 +2566,7 @@ function openBatNoticias() {
           body: JSON.stringify({
             model: 'claude-sonnet-4-20250514',
             max_tokens: 1000,
-            messages: [{ role: 'user', content: 'Crie 4 notícias curtas e dramáticas do jornal Gotham Gazette, estááilo noir policial dos anos 40. Cada notícia deve ter: título de manchete impactante em caixa alta, subtítulo dramático, 2-3 frases de conteúdo jornalístico. Varie entre: crimes, aparições do Batman, declarações de autoridades, eventos sobrenaturais. Mencione VILÕES icônicos e locais de Gotham. Tom sombrio, urgente e cinematográfico. Responda APENAS em JSON sem markdown: {"noticias":[{"titulo":"...","subtitulo":"...","conteúdo":"...","urgencia":"URGENTE|ALERTA|INFO","secao":"CRIME|POLÍTICA|BATMAN|ARKHAM"}]}' }]
+            messages: [{ role: 'user', content: 'Crie 4 NOTÍCIAS curtas e dramáticas do jornal Gotham Gazette, estááilo noir policial dos anos 40. Cada notícia deve ter: título de manchete impactante em caixa alta, subtítulo dramático, 2-3 frases de conteúdo jornalístico. Varie entre: crimes, aparições do Batman, declarações de autoridades, eventos sobrenaturais. Mencione VILÕES icônicos e locais de Gotham. Tom sombrio, urgente e cinematográfico. Responda APENAS em JSON sem markdown: {"NOTÍCIAS":[{"titulo":"...","subtitulo":"...","conteúdo":"...","urgencia":"URGENTE|ALERTA|INFO","secao":"CRIME|POLÍTICA|BATMAN|ARKHAM"}]}' }]
           })
         });
         const data = await res.json();
@@ -2575,7 +2575,7 @@ function openBatNoticias() {
         const parsed = JSON.parse(clean);
 
         feed.innerHTML = '';
-        parsed.noticias.forEach(n => {
+        parsed.NOTÍCIAS.forçach(n => {
           const cor = n.urgencia==='URGENTE'?'#ff3333':n.urgencia==='ALERTA'?'#ff8800':'#00ffcc';
           const card = document.createElement('div');
           card.style.cssText = `background:#0a0d14;border-left:3px solid ${cor};border-radius:0 6px 6px 0;padding:10px;`;
@@ -2590,7 +2590,7 @@ function openBatNoticias() {
             <div style="font-size:10px;color:#888;margin-top:6px;line-height:1.6;border-top:1px solid rgba(255,255,255,0.06);padding-top:6px;">${n.conteúdo}</div>`;
           feed.appendChild(card);
         });
-        logAtividade('BAT-NOTÍCIAS', 'Notícias geradas com sucesso');
+        logAtividade('BAT-NOTÍCIAS', 'NOTÍCIAS geradas com sucesso');
       } catch(e) {
         feed.innerHTML = '<div style="color:#ff3333;text-align:center;padding:20px;font-size:11px;">⚠ Erro ao conectar com a rede de inforçantes.</div>';
       }
@@ -2606,7 +2606,7 @@ function openBatNoticias() {
 // COFRE DE SENHAS
 // =====================
 function openCofre() {
-  logAtividade('COFRE WAYNE', 'módulo aberto');
+  logAtividade('COFRE WAYNE', 'modulo aberto');
   makeWindow('cofre', '🔐 COFRE WAYNE', function(body) {
     const COFRE_KEY = 'batcomputer-cofre';
 
@@ -2632,7 +2632,7 @@ function openCofre() {
       <input id="cofre-pass" placeholder="Senha" type="password" style="background:#050810;border:1px solid #1a2a2a;border-radius:4px;padding:6px 8px;color:#ccc;font-size:11px;outline:none;">
       <div id="cofre-strength" style="height:3px;border-radius:2px;background:#1a2a2a;transition:all 0.3s;"><div id="cofre-strength-bar" style="height:100%;border-radius:2px;width:0%;transition:all 0.3s;background:#ff3333;"></div></div>
       <div id="cofre-strength-label" style="font-size:9px;color:#555;letter-spacing:1px;text-align:right;"></div>
-      <button id="cofre-add" style="background:#0d1a0d;border:1px solid #00ffcc;color:#00ffcc;padding:7px;border-radius:4px;font-size:10px;cursor:pointer;letter-spacing:2px;">🔒 GUARDAR NO COFRE</button>`;
+      <button id="cofre-add" style="background:#0d1a0d;border:1px solid #00ffcc;color:#00ffcc;padding:7px;border-radius:4px;font-size:10px;cursor:pointer;letter-spacing:2px;">🔒 águaRDAR NO COFRE</button>`;
     wrap.appendChild(form);
 
     const lista = document.createElement('div');
@@ -2645,7 +2645,7 @@ function openCofre() {
         lista.innerHTML = '<div style="color:#555;text-align:center;padding:16px;font-size:10px;letter-spacing:1px;">COFRE VAZIO</div>';
         return;
       }
-      itens.forEach((item, i) => {
+      itens.forçach((item, i) => {
         const card = document.createElement('div');
         card.style.cssText = 'background:#0a0d14;border:1px solid #1a2a2a;border-radius:6px;padding:8px;';
         const visivel = visiveis[i];
@@ -2755,7 +2755,7 @@ document.head.appendChild(styleExtra);
 
 // Enter no campo de código
 document.getElementById('pix-code-input').addEventListener('keydown', e => {
-  if (e.key === 'Enter') verificarcódigo();
+  if (e.key === 'Enter') verificarCodigo();
 });
 
 // Verificar acesso ao iniciar
@@ -2772,3 +2772,8 @@ if ('speechSynthesis' in window) {
   speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices();
 }
 
+
+function enviarWhats() {
+  const url = "https://wa.me/" + PIX_WHATS + "?text=BatComputer: Ola! Segue o comprovante de pagamento.";
+  window.open(url, "_blank");
+}
